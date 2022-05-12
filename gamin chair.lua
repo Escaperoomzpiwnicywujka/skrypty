@@ -95,6 +95,10 @@ local Overlay_12 = Instance.new("ImageLabel")
 local FoodBar = Instance.new("Frame")
 local UICorner_2 = Instance.new("UICorner")
 local Overlay_13 = Instance.new("ImageLabel")
+local Bell = Instance.new("TextLabel")
+local Overlay_14 = Instance.new("ImageLabel")
+local Edict = Instance.new("TextLabel")
+local Overlay_15 = Instance.new("ImageLabel")
 
 -- ustawienia
 
@@ -490,6 +494,61 @@ Overlay_13.ImageColor3 = Color3.fromRGB(245, 197, 130)
 Overlay_13.ScaleType = Enum.ScaleType.Slice
 Overlay_13.SliceCenter = Rect.new(5, 5, 5, 5)
 
+Bell.Name = "Bell"
+Bell.Parent = ScrollingFrame
+Bell.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Bell.BackgroundTransparency = 1.000
+Bell.BorderSizePixel = 0
+Bell.Position = UDim2.new(0.5, 0, 0.450000006, 0)
+Bell.Size = UDim2.new(0.5, 0, 0.0500000007, 0)
+Bell.Font = Enum.Font.SourceSansSemibold
+Bell.Text = "N/A"
+Bell.TextColor3 = Color3.fromRGB(255, 255, 255)
+Bell.TextSize = 14.000
+Bell.TextStrokeTransparency = 0.000
+Bell.TextWrapped = true
+Bell.TextYAlignment = Enum.TextYAlignment.Top
+
+Overlay_14.Name = "Overlay"
+Overlay_14.Parent = Bell
+Overlay_14.AnchorPoint = Vector2.new(0.5, 0.5)
+Overlay_14.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Overlay_14.BackgroundTransparency = 1.000
+Overlay_14.Position = UDim2.new(0.5, 0, 0.5, 0)
+Overlay_14.Size = UDim2.new(1, 0, 1, 0)
+Overlay_14.ZIndex = 0
+Overlay_14.Image = "rbxassetid://2739347995"
+Overlay_14.ImageColor3 = Color3.fromRGB(245, 197, 130)
+Overlay_14.ScaleType = Enum.ScaleType.Slice
+Overlay_14.SliceCenter = Rect.new(5, 5, 5, 5)
+
+Edict.Name = "Edict"
+Edict.Parent = ScrollingFrame
+Edict.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Edict.BackgroundTransparency = 1.000
+Edict.BorderSizePixel = 0
+Edict.Position = UDim2.new(0, 0, 0.449999994, 0)
+Edict.Size = UDim2.new(0.5, 0, 0.0500000007, 0)
+Edict.Font = Enum.Font.SourceSansSemibold
+Edict.Text = "N/A"
+Edict.TextColor3 = Color3.fromRGB(255, 255, 255)
+Edict.TextSize = 18.000
+Edict.TextStrokeTransparency = 0.000
+Edict.TextYAlignment = Enum.TextYAlignment.Top
+
+Overlay_15.Name = "Overlay"
+Overlay_15.Parent = Edict
+Overlay_15.AnchorPoint = Vector2.new(0.5, 0.5)
+Overlay_15.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Overlay_15.BackgroundTransparency = 1.000
+Overlay_15.Position = UDim2.new(0.5, 0, 0.5, 0)
+Overlay_15.Size = UDim2.new(1, 0, 1, 0)
+Overlay_15.ZIndex = 0
+Overlay_15.Image = "rbxassetid://2739347995"
+Overlay_15.ImageColor3 = Color3.fromRGB(245, 197, 130)
+Overlay_15.ScaleType = Enum.ScaleType.Slice
+Overlay_15.SliceCenter = Rect.new(5, 5, 5, 5)
+
 function UpdateHealthbar(plr)
 	if CurrentPlayerSelected and CurrentPlayerSelected.Character and CurrentPlayerSelected.Character:FindFirstChild("Humanoid") then
 	
@@ -543,6 +602,8 @@ local function charremove()
 	Runes.Text = "N/A"
 	Race.Text = "N/A"
 	Lives.Text = "N/A"
+	Bell.Text = "N/A"
+	Edict.Text = "N/A"
 
 	if connection1 then
 		connection1:Disconnect()
@@ -580,6 +641,7 @@ local function playerremove(player)
 	Race.Text = "N/A"
 	Lives.Text = "N/A"
 	Class.Text = "N/A"
+	Bell.Text = "N/A"
 	if connection1 then
 		connection1:Disconnect()
 	end
@@ -630,6 +692,8 @@ local function updatespy()
     local racevalue = data.Race.Value or "N/A"
     local vampvalue = data.IsVamp.Value or "N/A"
     local enchantvalue = data.Enchant.Value or "N/A"
+	local bellvalue = data.Bell.Value or "N/A"
+	local edictvalue = data.Edict.Value or "N/a"
 
     local food = math.clamp(hungervalue / 100, 0, 1)
     local health = math.clamp(healthvalue / maxhealthvalue, 0, 1)
@@ -645,6 +709,8 @@ local function updatespy()
     Lives.Text = "Zycia: ".. tostring(math.round(livesvalue))
     Vamp.Text = "Vamp: ".. tostring(vampvalue)
     Enchant.Text = "Enchant: ".. tostring(enchantvalue)
+    Bell.Text = "Bell: ".. tostring(bellvalue)
+	Edict.Text = "Edict: ".. tostring(edictvalue)
 
     playerremovingconnection = game:GetService("Players").PlayerRemoving:Connect(playerremove)
     charremoveconnection = CurrentPlayerSelected.CharacterRemoving:Connect(charremove)
@@ -1064,6 +1130,7 @@ local Tab = Window:MakeTab({
 local infJump;
 local lightconnection
 local brightnessloop
+local falldmg
 
 Tab:AddToggle({
     Name = "NoFog",
@@ -1119,6 +1186,24 @@ Tab:AddToggle({
     end 
 })
 
+Tab:AddToggle({
+	Name = "NoFall",
+	Default = false,
+	CallBack = function(value)
+		falldmg = value or false
+	end
+})
+coroutine.wrap(function()
+	local method
+	method = hookmetamethod(game, "__namecall", function(b, ...)
+		if falldmg == true then
+			if not checkcaller() and getnamecallmethod() == 'FireServer' and tostring(b) == 'RemoteEvent' then
+				return;
+			end
+		end
+		return method(b,...)
+	end)
+end)
 -- Swiat
 local safefolder = Instance.new("Folder")
 safefolder.Parent = game.CoreGui
@@ -1334,3 +1419,4 @@ Tab2:AddToggle({
 
 OrionLib:Init()
 
+return
