@@ -569,11 +569,11 @@ function UpdateHealthbar(plr)
 	--FoodBar.Size = UDim2.fromScale(food, 0.045)
 	--FoodNumber.Text = "Hunger : ".. tostring(math.round(hungervalue))
 	--Lives.Text = "Lives: ".. tostring(math.round(livesvalue))
-else
-    return
-end
-else 
-	return
+	else
+    	return
+	end
+	else 
+		return
 	end
 end
 
@@ -673,53 +673,53 @@ end
 local function updatespy()
     if CurrentPlayerSelected and CurrentPlayerSelected.Character and CurrentPlayerSelected.Character:FindFirstChild("Humanoid") then
         PlayerName.Text = CurrentPlayerSelected.Name
-    local classtext = CurrentPlayerSelected.Data.Class.Value or "N/A"
-    Class.Text = tostring(classtext)
+    	local classtext = CurrentPlayerSelected.Data.Class.Value or "N/A"
+    	Class.Text = tostring(classtext)
 
-    local data = CurrentPlayerSelected:FindFirstChild("Data")
+    	local data = CurrentPlayerSelected:FindFirstChild("Data")
 
-    local plrchar = CurrentPlayerSelected.Character or nil
-    local humanoid = plrchar:FindFirstChild("Humanoid") or nil
+    	local plrchar = CurrentPlayerSelected.Character or nil
+    	local humanoid = plrchar:FindFirstChild("Humanoid") or nil
 
-    local hungervalue = data.Hunger.Value or 0
-    local livesvalue = data.Lives.Value or 0
-    local healthvalue = humanoid.Health or 0
-    local maxhealthvalue = humanoid.MaxHealth or 0
-    local daysvalue = data.Days.Value or 0
-    local artivalue = data.Artifact.Value or "N/A"
-    local silvervalue = data.Silver.Value or 0
-    local runesvalue = data.Runes.Value or 0
-    local racevalue = data.Race.Value or "N/A"
-    local vampvalue = data.IsVamp.Value or "N/A"
-    local enchantvalue = data.Enchant.Value or "N/A"
-	local bellvalue = data.Bell.Value or "N/A"
-	local edictvalue = data.Edict.Value or "N/a"
+    	local hungervalue = data.Hunger.Value or 0
+    	local livesvalue = data.Lives.Value or 0
+    	local healthvalue = humanoid.Health or 0
+    	local maxhealthvalue = humanoid.MaxHealth or 0
+    	local daysvalue = data.Days.Value or 0
+    	local artivalue = data.Artifact.Value or "N/A"
+    	local silvervalue = data.Silver.Value or 0
+    	local runesvalue = data.Runes.Value or 0
+    	local racevalue = data.Race.Value or "N/A"
+    	local vampvalue = data.IsVamp.Value or "N/A"
+    	local enchantvalue = data.Enchant.Value or "N/A"
+		local bellvalue = data.Bell.Value or "N/A"
+		local edictvalue = data.Edict.Value or "N/a"
 
-    local food = math.clamp(hungervalue / 100, 0, 1)
-    local health = math.clamp(healthvalue / maxhealthvalue, 0, 1)
-    HealthBar.Size = UDim2.fromScale(health, 0.045)
-    PlayersHP.Text = tostring(math.round(healthvalue))
-    FoodBar.Size = UDim2.fromScale(food, 0.045)
-    FoodNumber.Text = "Glod: ".. tostring(math.round(hungervalue))
-    Days.Text = "Dni: ".. tostring(math.round(daysvalue))
-    Artifact.Text = "Artefakt: ".. artivalue
-    Silver.Text = "Silver: ".. tostring(math.round(silvervalue))
-    Runes.Text = "Runy: ".. tostring(math.round(runesvalue))
-    Race.Text = "Rasa: ".. racevalue
-    Lives.Text = "Zycia: ".. tostring(math.round(livesvalue))
-    Vamp.Text = "Vamp: ".. tostring(vampvalue)
-    Enchant.Text = "Enchant: ".. tostring(enchantvalue)
-    Bell.Text = "Bell: ".. tostring(bellvalue)
-	Edict.Text = "Edict: ".. tostring(edictvalue)
+    	local food = math.clamp(hungervalue / 100, 0, 1)
+    	local health = math.clamp(healthvalue / maxhealthvalue, 0, 1)
+    	HealthBar.Size = UDim2.fromScale(health, 0.045)
+    	PlayersHP.Text = tostring(math.round(healthvalue))
+    	FoodBar.Size = UDim2.fromScale(food, 0.045)
+    	FoodNumber.Text = "Glod: ".. tostring(math.round(hungervalue))
+    	Days.Text = "Dni: ".. tostring(math.round(daysvalue))
+    	Artifact.Text = "Artefakt: ".. artivalue
+    	Silver.Text = "Silver: ".. tostring(math.round(silvervalue))
+    	Runes.Text = "Runy: ".. tostring(math.round(runesvalue))
+    	Race.Text = "Rasa: ".. racevalue
+    	Lives.Text = "Zycia: ".. tostring(math.round(livesvalue))
+    	Vamp.Text = "Vamp: ".. tostring(vampvalue)
+    	Enchant.Text = "Enchant: ".. tostring(enchantvalue)
+    	Bell.Text = "Bell: ".. tostring(bellvalue)
+		Edict.Text = "Edict: ".. tostring(edictvalue)
 
-    playerremovingconnection = game:GetService("Players").PlayerRemoving:Connect(playerremove)
-    charremoveconnection = CurrentPlayerSelected.CharacterRemoving:Connect(charremove)
-    connection1 = CurrentPlayerSelected.Character.Humanoid:GetPropertyChangedSignal("Health"):Connect(UpdateHealthbar)
-    connection2 = CurrentPlayerSelected.Character.Humanoid:GetPropertyChangedSignal("MaxHealth"):Connect(UpdateHealthbar)
-    hungerconnection = CurrentPlayerSelected.Data.Hunger:GetPropertyChangedSignal("Value"):Connect(updatefood)
-    daysconnection = CurrentPlayerSelected.Data.Days:GetPropertyChangedSignal("Value"):Connect(UpdateHealthbar)
-    livesconnection = CurrentPlayerSelected.Data.Lives:GetPropertyChangedSignal("Value"):Connect(updatelives)
-    charaddconnection = CurrentPlayerSelected.CharacterAdded:Connect(UpdateHealthbar)
+    	playerremovingconnection = game:GetService("Players").PlayerRemoving:Connect(playerremove)
+    	charremoveconnection = CurrentPlayerSelected.CharacterRemoving:Connect(charremove)
+    	connection1 = CurrentPlayerSelected.Character.Humanoid:GetPropertyChangedSignal("Health"):Connect(UpdateHealthbar)
+    	connection2 = CurrentPlayerSelected.Character.Humanoid:GetPropertyChangedSignal("MaxHealth"):Connect(UpdateHealthbar)
+    	hungerconnection = CurrentPlayerSelected.Data.Hunger:GetPropertyChangedSignal("Value"):Connect(updatefood)
+    	daysconnection = CurrentPlayerSelected.Data.Days:GetPropertyChangedSignal("Value"):Connect(UpdateHealthbar)
+    	livesconnection = CurrentPlayerSelected.Data.Lives:GetPropertyChangedSignal("Value"):Connect(updatelives)
+    	charaddconnection = CurrentPlayerSelected.CharacterAdded:Connect(UpdateHealthbar)
     else
         return
     end
@@ -1110,7 +1110,6 @@ local UserInputService = game:GetService("UserInputService")
 local mouse = game.Players.LocalPlayer:GetMouse()
 -- biblioteka
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
-local Window = OrionLib:MakeWindow({Name = "Gamin Worl gaming chair", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
 
 -- variable
 local enablechamsevent = Instance.new("BindableEvent")
@@ -1119,92 +1118,194 @@ local enabledchams = false
 local Player = game:GetService("Players")
 local LocalPlayer = Player.LocalPlayer
 local infJump;
+local falldmg;
+local nostun;
+local ingredientpickup;
+local trinketpickup;
+local autobard;
+local noinjuries;
+local betterambient;
+local walkspeedenabled;
+local WalkSpeedValue;
+local speedconnection;
 
 -- Gracz
+local Window = OrionLib:MakeWindow({Name = "Gamin Worl gaming chair", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
 local Tab = Window:MakeTab({
 	Name = "Gracz",
 	Icon = "rbxassetid://6961018885",
 	PremiumOnly = false
 })
-
-local infJump;
-local lightconnection
-local brightnessloop
-local falldmg
-
-Tab:AddToggle({
-    Name = "NoFog",
-    Default = false,
-    Callback = function(value)
-        onoff = value or false
-
-        if lightconnection then
-            lightconnection:Disconnect()
-        end
-
-        if onoff == true then
-            fogconnection = game:GetService("Lighting"):GetPropertyChangedSignal("FogEnd"):Connect(function()
-                game:GetService("Lighting").FogEnd = 786543
-                game:GetService("Lighting")['AreaOutdoor'].Value = Color3.fromRGB(255,255,255)
-            end)
-            game:GetService("Lighting").FogEnd = 786543
-        end
-    end
+local Tab2 = Window:MakeTab({
+	Name = "Swiat",
+	Icon = "rbxassetid://6961018885",
+	PremiumOnly = false
 })
 
-Tab:AddToggle({
-    Name = "FullBright",
-    Default = false,
-    Callback = function(value)
-        onoff = value or false
-        if brightnessloop then
-            brightnessloop:Disconnect()
-        end
 
-        if onoff == true then
-            brightnessloop = game:GetService("RunService").RenderStepped:Connect(function()
-                game:GetService("Lighting").GlobalShadows = false
-                game:GetService("Lighting").Brightness = 1.5
-                game:GetService("Lighting")["AreaBrightness"].Value = 1.25
-            end)
-        else
-            game:GetService("Lighting").GlobalShadows = true
-        end
-    end
-})
-
-Tab:AddToggle({
-	Name = "InfJump",
+Tab:AddButton({
+	Name = "Reset",
 	Default = false,
-	Callback = function(value)
-        infJump = value
-        game:GetService("UserInputService").JumpRequest:Connect(function()
-            if infJump then
-                LocalPlayer.Character:WaitForChild("Humanoid"):ChangeState("Jumping")
-            end
-        end)
-    end 
+	Callback = function()
+		game.Players.LocalPlayer.Character:BreakJoints()
+	end
+})
+
+Tab:AddButton({
+	Name = "Wipe",
+	Default = false,
+	Callback = function()
+		game.Players.LocalPlayer.Character.FallDamage.RemoteEvent:FireServer(1000)
+	end
+})
+
+Tab:AddToggle({
+	Name = "NoStun",
+	Default = false,
+	Callback = function(bool)
+		nostun = bool
+
+		if nostun then
+			if table.getn(game:GetService("Workspace").AliveData[game.Players.LocalPlayer.Name].Status:GetChildren()) >0 then
+				for i,v in pairs(game:GetService("Workspace").AliveData[game.Players.LocalPlayer.Name].Status:GetChildren()) do
+					v:Destroy()
+				end
+			end
+		end
+	end
 })
 
 Tab:AddToggle({
 	Name = "NoFall",
 	Default = false,
-	CallBack = function(value)
-		falldmg = value or false
+	Callback = function(bool)
+		falldmg = bool
 	end
 })
+
 coroutine.wrap(function()
-	local method
-	method = hookmetamethod(game, "__namecall", function(b, ...)
+	local t = {
+		"Sprinting",
+		"Action",
+		"NoJump",
+		"HeavyAttack",
+		"LightAttack",
+		"NoJump",
+		"ForwardDash",
+		"RecentDash",
+		"ClimbCoolDown",
+		"NoDash",
+		"Casting",
+		"IsClimbing"
+	}
+	repeat task.wait(0.5) until game:GetService("Workspace").AliveData:FindFirstChild(game.Players.LocalPlayer.Name) and game:GetService("Workspace").AliveData[game.Players.LocalPlayer.Name]:FindFirstChild("Status")
+	game:GetService("Workspace").AliveData[game.Players.LocalPlayer.Name].Status.ChildAdded:Connect(function(child)
+		if nostun == true and table.find(t, child.Name) then
+			task.wait()
+			child:remove()
+		end
+	end)
+end)()
+
+coroutine.wrap(function()
+	local method 
+	method = hookmetamethod(game,'__namecall', function(b,...)
 		if falldmg == true then
 			if not checkcaller() and getnamecallmethod() == 'FireServer' and tostring(b) == 'RemoteEvent' then
-				return;
+				return 
 			end
 		end
-		return method(b,...)
+		return method(b, ...)
 	end)
-end)
+
+	--[[local old
+	old = hookfunction(Instance.new("RemoteFunction").InvokeServer, newcclosure(function(instance, ...)
+		if falldmg == true then
+			if not checkcaller() and instance.Parent.Name == "FallDamage" then
+				return 
+			end
+		end
+		return old(instance, ...)
+	end))
+--]]
+
+
+
+
+
+
+
+
+end)()
+
 -- Swiat
+
+Tab2:AddToggle({
+	Name = "NoKillBricks",
+	Default = false,
+	Callback = function(onoff)
+		onoff = onoff or false
+		if onoff == true then
+			for i,v in pairs(game.Workspace.Map.KillBricks:GetChildren()) do
+				if v:IsA("Part") then
+					v.CanTouch = false
+				end
+			end
+		else
+			for i,v in pairs(game.Workspace.Map.KillBricks:GetChildren()) do
+				if v:IsA("Part") then
+					v.CanTouch = true
+				end
+			end
+		end
+	end
+})
+
+local lightconnection
+local brightnessloop
+
+Tab2:AddToggle({
+	Name = "FullBright",
+	Default = false,
+	Callback = function(onoff)
+		onoff = onoff or false
+		if brightnessloop then
+			brightnessloop:Disconnect()
+		end
+
+		if onoff == true then
+			brightnessloop = game:GetService("RunService").RenderStepped:Connect(function()
+				game:GetService("Lighting").GlobalShadows = false
+				game:GetService("Lighting").Brightness = 1.5
+				game:GetService("Lighting")["AreaBrightness"].Value = 1.25
+			end)
+		else
+			game:GetService("Lighting").GlobalShadows = true
+		end
+	end
+})
+
+Tab2:AddToggle({
+	Name = "NoFog",
+	Default = false,
+	CallBack = function(onoff)
+		onoff = onoff or false
+
+		if lightconnection then
+			lightconnection:Disconnect()
+		end
+
+		if onoff == true then
+			fogconnection = game:GetService("Lighting"):GetPropertyChangedSignal("FogEnd"):Connect(function()
+				game:GetService("Lighting").FogEnd = 786543
+				game:GetService("Lighting")['AreaOutdoor'].Value = Color3.fromRGB(255,255,255)
+			end)
+			game:GetService("Lighting").FogEnd = 786543
+		end
+	end
+})
+
+
 local safefolder = Instance.new("Folder")
 safefolder.Parent = game.CoreGui
 
@@ -1343,6 +1444,8 @@ function createesp(plr)
 	end
 end
 
+
+
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 
@@ -1351,72 +1454,36 @@ for i, v in pairs(Players:GetPlayers()) do
 		if v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
 			createesp(v)
 		end
-		v.CharacterAdded:Connect(
-			function(chare)
-				v.Character:WaitForChild("HumanoidRootPart")
-				v.Character:WaitForChild("Humanoid")
-				task.wait(0.5)
-				createesp(v)
-			end
-		)
+		v.CharacterAdded:Connect(function(chare)
+			v.Character:WaitForChild("HumanoidRootPart")
+			v.Character:WaitForChild("Humanoid")
+			task.wait(0.5)
+			createesp(v)
+		end)
 	end
 end
 
-Players.PlayerAdded:Connect(
-	function(Player)
-		Player.CharacterAdded:Connect(
-			function(chare)
-				Player.Character:WaitForChild("HumanoidRootPart")
-				Player.Character:WaitForChild("Humanoid")
-				task.wait(0.5)
-				createesp(Player)
-			end)
-		Player.CharacterRemoving:Connect(function()
-			if safefolder:FindFirstChild(Player.Name) then
-				safefolder[Player.Name]:Destroy()
-			end
-		end)
+Players.PlayerAdded:Connect(function(Player)
+	Player.CharacterAdded:Connect(function(chare)
+		Player.Character:WaitForChild("HumanoidRootPart")
+		Player.Character:WaitForChild("Humanoid")
+		task.wait(0.5)
+		createesp(Player)
 	end)
+	Player.CharacterRemoving:Connect(function()
+		if safefolder:FindFirstChild(Player.Name) then
+			safefolder[Player.Name]:Destroy()
+		end
+	end)
+end)
 
-local Tab2 = Window:MakeTab({
-	Name = "Swiat",
-	Icon = "rbxassetid://6961018885",
-	PremiumOnly = false
+Tab:AddToggle({
+	Name = "Esp",
+	Default = false,
+	Callback = function(bool)
+		enabledesp = bool
+	end
 })
-
-Tab2:AddToggle({
-    Name = "Esp",
-    Default = false,
-    Callback = function(value)
-        enabledesp = value
-    end
-})
-Tab2:AddToggle({
-    Name = "NoKillBricks",
-    Default = false,
-    CallBack = function(value)
-        value = value or false
-        if value == true then
-            for i,v in pairs(game.Workspace.Map.KillBricks:GetChildren()) do
-                if v:IsA("Part") then
-                    v.CanTouch = false
-                end
-            end
-        else
-            for i,v in pairs(game.Workspace.Map.KillBricks:GetChildren()) do
-                if v:IsA("Part") then
-                    v.CanTouch = true
-                end
-            end
-        end
-    end
-})
-
-
-
-
-
-
 OrionLib:Init()
 
 return
