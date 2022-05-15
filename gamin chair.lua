@@ -1241,7 +1241,7 @@ Tab2:AddToggle({
 Tab2:AddToggle({
 	Name = "NoFog",
 	Default = false,
-	CallBack = function(onoff)
+	Callback = function(onoff)
 		onoff = onoff or false
 
 		if lightconnection then
@@ -1258,6 +1258,27 @@ Tab2:AddToggle({
 	end
 })
 
+Tab:Addtoggle({
+	Name = "AutoBard",
+	Default = false,
+	Callback = function(onoff)
+		onoff = onoff or false
+		autobard = onoff
+	end
+})
+
+coroutine.wrap(function()
+	local bardgui = game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("BardGui")
+
+	bardgui.ChildAdded:Connect(function(part)
+		if autobard and part:IsA("ImageButton") then
+			task.wait(0.9)
+			firesignal(part.MouseButton1Click)
+		end
+	end)
+end())
+
+----------------------------------------------------------------------------------------
 local safefolder = Instance.new("Folder")
 safefolder.Parent = game.CoreGui
 
