@@ -1258,7 +1258,7 @@ Tab2:AddToggle({
 	end
 })
 
-Tab:Addtoggle({
+Tab:AddToggle({
 	Name = "AutoBard",
 	Default = false,
 	Callback = function(onoff)
@@ -1276,7 +1276,7 @@ coroutine.wrap(function()
 			firesignal(part.MouseButton1Click)
 		end
 	end)
-end())
+end)()
 
 ----------------------------------------------------------------------------------------
 local safefolder = Instance.new("Folder")
