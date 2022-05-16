@@ -1143,6 +1143,22 @@ Tab:AddToggle({
 	end
 })
 
+Tab:AddToggle({
+	Name = "Esp",
+	Default = false,
+	Callback = function(bool)
+		enabledesp = bool 
+	end
+})
+
+Tab:AddToggle({
+	Name = "AutoBard",
+	Default = false,
+	Callback = function(onoff)
+		autobard = onoff or false
+	end
+})
+
 coroutine.wrap(function()
 	local t = {
 		"Sprinting",
@@ -1189,6 +1205,17 @@ coroutine.wrap(function()
 	end))
 --]]
 
+end)()
+
+coroutine.wrap(function()
+	local bardgui = game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("BardGui")
+
+	bardgui.ChildAdded:Connect(function(part)
+		if autobard and part:IsA("ImageButton") then
+			task.wait(0.9)
+			firesignal(part.MouseButton1Click)
+		end
+	end)
 end)()
 
 -- Swiat
@@ -1257,26 +1284,6 @@ Tab2:AddToggle({
 		end
 	end
 })
-
-Tab:AddToggle({
-	Name = "AutoBard",
-	Default = false,
-	Callback = function(onoff)
-		onoff = onoff or false
-		autobard = onoff
-	end
-})
-
-coroutine.wrap(function()
-	local bardgui = game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("BardGui")
-
-	bardgui.ChildAdded:Connect(function(part)
-		if autobard and part:IsA("ImageButton") then
-			task.wait(0.9)
-			firesignal(part.MouseButton1Click)
-		end
-	end)
-end)()
 
 ----------------------------------------------------------------------------------------
 local safefolder = Instance.new("Folder")
@@ -1446,13 +1453,6 @@ Players.PlayerAdded:Connect(function(Player)
 	end)
 end)
 
-Tab:AddToggle({
-	Name = "Esp",
-	Default = false,
-	Callback = function(bool)
-		enabledesp = bool
-	end
-})
 OrionLib:Init()
 
 return
